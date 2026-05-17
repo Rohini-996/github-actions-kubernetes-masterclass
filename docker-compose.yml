@@ -22,7 +22,7 @@ services:
       start_period: 30s
     
   backend:
-    image: ${DOCKERHUB_USERNAME}/skillpulse-backend:latest
+    image: rohinidivekar123/skillpulse-backend:latest
     build: ./backend
     restart: unless-stopped
     networks:
@@ -30,9 +30,9 @@ services:
     environment:
       DB_HOST: db
       DB_PORT: "3306"
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_NAME: ${DB_NAME}
+      DB_USER: skillpulse
+      DB_PASSWORD: skillpulse123
+      DB_NAME: skillpulse
       PORT: "8080"
   
     depends_on:
@@ -40,7 +40,7 @@ services:
         condition: service_healthy
 
   frontend:
-    image: ${DOCKERHUB_USERNAME}/skillpulse-frontend:latest
+    image: rohinidivekar123/skillpulse-frontend:latest
     build: ./frontend
     restart: unless-stopped
     networks:
