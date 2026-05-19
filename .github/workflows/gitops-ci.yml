@@ -37,7 +37,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.26"
+          go-version: "1.23"
 
       # ---------------- GO TESTS ---------------- #
 
@@ -169,13 +169,13 @@ jobs:
 
       - name: Update Backend Deployment Image
         run: |
-          sed -i 's|image: .*skillpulse-backend.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/skillpulse-backend:${{ github.sha }}|g' k8s/backend/deployment.yml
+          sed -i 's|image: .*skillpulse-backend.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/skillpulse-backend:${{ github.sha }}|g' k8s/20-backend.yaml 
 
       # ---------------- UPDATE FRONTEND IMAGE ---------------- #
 
       - name: Update Frontend Deployment Image
         run: |
-          sed -i 's|image: .*skillpulse-frontend.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/skillpulse-frontend:${{ github.sha }}|g' k8s/frontend/deployment.yml
+          sed -i 's|image: .*skillpulse-frontend.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/skillpulse-frontend:${{ github.sha }}|g' k8s/30-frontend.yaml
 
       # ---------------- COMMIT ---------------- #
 
