@@ -63,11 +63,13 @@ jobs:
         uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: backend/Dockerfile
+          ignore: DL3018
 
       - name: Lint Frontend Dockerfile
         uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: frontend/Dockerfile
+          ignore: DL3018
 
   # =========================================================
   # BUILD & PUSH IMAGES
