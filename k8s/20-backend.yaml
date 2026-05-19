@@ -48,32 +48,21 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: skillpulse-db
-                  key: MYSQL_USER
+                  key: DB_USER
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: skillpulse-db
-                  key: MYSQL_PASSWORD
+                  key: DB_PASSWORD
             - name: DB_NAME
               valueFrom:
                 secretKeyRef:
                   name: skillpulse-db
-                  key: MYSQL_DATABASE
+                  key: DB_NAME
           resources:
             requests:
               cpu: 100m
               memory: 64Mi
             limits:
               memory: 128Mi
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-            initialDelaySeconds: 15
-            periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 5
+    
