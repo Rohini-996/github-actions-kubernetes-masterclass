@@ -7,6 +7,11 @@ metadata:
 type: Opaque
 stringData:
   MYSQL_ROOT_PASSWORD: rootpassword123
+
+  MYSQL_DATABASE: skillpulse
+  MYSQL_USER: skillpulse
+  MYSQL_PASSWORD: skillpulse123
+
   DB_NAME: skillpulse
   DB_USER: skillpulse
   DB_PASSWORD: skillpulse123
