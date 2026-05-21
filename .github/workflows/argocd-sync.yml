@@ -1,0 +1,29 @@
+name: argocd-sync
+
+on:
+  workflow_run:
+    workflows: ["ci-gitops"]
+    types:
+      - completed
+
+jobs:
+  argocd-sync:
+    name: Trigger ArgoCD Sync
+
+    if: >
+      github.event.workflow_run.conclusion == 'success'
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # =====================================================
+      # TRIGGER ARGOCD APPLICATION SYNC
+      # =====================================================
+
+      - name: Sync ArgoCD Application
+        run: |
+          curl -k -X POST "${{ secrets.ARGOCD_SERVER }}/api/v1/applications/${{ secrets.ARGOCD_APP_NAME }}/sync" \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Bearer ${{ secrets.ARGOCD_AUTH_TOKEN }}"
+
