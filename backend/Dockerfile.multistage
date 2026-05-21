@@ -1,0 +1,37 @@
+# =========================
+# Stage 1: Builder
+# =========================
+FROM golang:1.26-alpine AS builder
+
+WORKDIR /app
+
+# Install git only if required by go modules
+RUN apk add --no-cache git
+
+# Copy dependency files first for better caching
+COPY go.mod go.sum ./
+
+RUN go mod download
+
+# Copy source code
+COPY . .
+
+# Build static binary
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+    go build -ldflags="-s -w" -o skillpulse .
+
+# =========================
+# Stage 2: Distroless Runtime
+# =========================
+FROM gcr.io/distroless/static-debian12:nonroot
+
+WORKDIR /app
+
+# Copy binary from builder
+COPY --from=builder /app/skillpulse .
+
+EXPOSE 8080
+
+USER nonroot:nonroot
+
+CMD ["./skillpulse"]
